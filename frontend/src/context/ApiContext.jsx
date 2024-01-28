@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {createContext, useContext, useState} from 'react';
 
-const SCRAPPER_ENDPOINT = `http://localhost:3000/api/product/scrape`;
+const SCRAPPER_ENDPOINT = `https://affiliatly-b.vercel.app/api/product/scrape`;
 
 const ApiContext = createContext();
 
