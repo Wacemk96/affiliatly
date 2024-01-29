@@ -30,7 +30,7 @@ const Hero = () => {
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': GPT_API_KEY,
+        'X-RapidAPI-Key': 'ce4fb89694mshf684e66fcfe064ap11731djsn2b7c6cae55f2',
         'X-RapidAPI-Host': 'chatgpt-42.p.rapidapi.com',
       },
       data: {
