@@ -1,18 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useApi } from '../context/ApiContext';
-import { Editor } from '@tinymce/tinymce-react';
-import axios from 'axios';
-import CategoriesList from './CategoriesList';
-import { IoIosSearch } from 'react-icons/io';
-import SearchBGIcons from './common/SearchBGIcons';
 import showdown from 'showdown';
+import SearchBGIcons from './common/SearchBGIcons';
+import React, { useEffect, useRef, useState } from 'react';
 import PostOnWordPress from './PostOnWordPress';
+import CategoriesList from './CategoriesList';
+import axios from 'axios';
+import { useApi } from '../context/ApiContext';
+import { IoIosSearch } from 'react-icons/io';
+import { Editor } from '@tinymce/tinymce-react';
+const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY;
+const EDITOR_API_KEY = import.meta.env.VITE_EDITOR_API_KEY;
+
 const Hero = () => {
   const [editorValue, setEditorValue] = useState('');
   const [isEditorLoading, setisEditorLoading] = useState(false);
   const { loading, error, content, getContent } = useApi();
   const linkRef = useRef();
-
   const handleProductDetail = async (e) => {
     e.preventDefault();
     if (linkRef.current.value === '') {
@@ -28,7 +30,7 @@ const Hero = () => {
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'ce4fb89694mshf684e66fcfe064ap11731djsn2b7c6cae55f2',
+        'X-RapidAPI-Key': GPT_API_KEY,
         'X-RapidAPI-Host': 'chatgpt-42.p.rapidapi.com',
       },
       data: {
@@ -146,12 +148,12 @@ const Hero = () => {
             <CategoriesList />
             <div className="container mt-10">
               <h1 className="mb-10 text-4xl font-bold">TinyMCE Editor</h1>
-              <div className="flex justify-end">
+              <div className="mb-5">
                 <PostOnWordPress postData={editorValue} />
               </div>
 
               <div
-                hidden={isEditorLoading}
+                hidden={!isEditorLoading}
               >
                 <p className="mb-10">Please Wait Content is almost ready...</p>
                 <div
@@ -163,9 +165,9 @@ const Hero = () => {
                 </div>{' '}
               </div>
 
-              <div hidden={!isEditorLoading}>
+              <div hidden={isEditorLoading}>
                 <Editor
-                  apiKey="wmhkfzjaxur9l0o8yr6mi4vjont19gd8t0xovtqqidj4fb9h"
+                  apiKey={EDITOR_API_KEY}
                   // init={{
                   //   plugins:
                   //     'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',

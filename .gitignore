@@ -226,3 +226,4 @@ $RECYCLE.BIN/
 
 /frontend/node_modules
 /Server/node_modules
+/frontend/src/components/PostOnWordPress copy.jsx
