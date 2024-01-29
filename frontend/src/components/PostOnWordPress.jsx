@@ -6,6 +6,8 @@ const PostOnWordPress = ({ postData }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [postLink, setPostLink] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+
   const auth = { username: username, password: password };
   const [open, setOpen] = useState(false);
   const cls = `transition duration-1000 ${open ? '' : 'hidden'}`
@@ -23,8 +25,9 @@ const PostOnWordPress = ({ postData }) => {
   };
   const createPost = async (e) => {
     e.preventDefault();
-    const postTitle = extractTitle();
     try {
+      setIsLoading(true)
+      const postTitle = extractTitle();
       const response = await axios.post(
         'https://app.waseemk.com/wp-json/wp/v2/posts',
         {
@@ -41,7 +44,7 @@ const PostOnWordPress = ({ postData }) => {
       setUsername('');
     } catch (error) {
       console.error('Error creating post:', error);
-    }
+    } finally { setIsLoading(false) }
   };
   const SubmitPost = () => {
     setOpen(!open)
@@ -111,6 +114,7 @@ const PostOnWordPress = ({ postData }) => {
                 type="submit"
                 className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-basic-modal"
+                disabled={isLoading}
               >
                 <BsSend />
                 Submit Post
