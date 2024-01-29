@@ -1,16 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useApi} from '../context/ApiContext';
-import {Editor} from '@tinymce/tinymce-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useApi } from '../context/ApiContext';
+import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
 import CategoriesList from './CategoriesList';
-import {IoIosSearch} from 'react-icons/io';
+import { IoIosSearch } from 'react-icons/io';
 import SearchBGIcons from './common/SearchBGIcons';
 import showdown from 'showdown';
 import PostOnWordPress from './PostOnWordPress';
 const Hero = () => {
   const [editorValue, setEditorValue] = useState('');
   const [isEditorLoading, setisEditorLoading] = useState(false);
-  const {loading, error, content, getContent} = useApi();
+  const { loading, error, content, getContent } = useApi();
   const linkRef = useRef();
 
   const handleProductDetail = async (e) => {
@@ -150,41 +150,44 @@ const Hero = () => {
                 <PostOnWordPress postData={editorValue} />
               </div>
 
-              {/* <div>
-                    <p className="mb-10">Please Wait Content is almost ready...</p>
-                    <div
-                      className="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
-                      role="status"
-                      aria-label="loading"
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </div>{' '}
-                  </div>
-           */}
+              <div
+                hidden={isEditorLoading}
+              >
+                <p className="mb-10">Please Wait Content is almost ready...</p>
+                <div
+                  className="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+                  role="status"
+                  aria-label="loading"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>{' '}
+              </div>
 
-              <Editor
-                apiKey="wmhkfzjaxur9l0o8yr6mi4vjont19gd8t0xovtqqidj4fb9h"
-                // init={{
-                //   plugins:
-                //     'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-                //   toolbar:
-                //     'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-                //   tinycomments_mode: 'embedded',
-                //   tinycomments_author: 'Author name',
-                //   mergetags_list: [
-                //     {value: 'First.Name', title: 'First Name'},
-                //     {value: 'Email', title: 'Email'},
-                //   ],
-                //   ai_request: (request, respondWith) =>
-                //     respondWith.string(() =>
-                //       Promise.reject('See docs to implement AI Assistant')
-                //     ),
-                // }}
+              <div hidden={!isEditorLoading}>
+                <Editor
+                  apiKey="wmhkfzjaxur9l0o8yr6mi4vjont19gd8t0xovtqqidj4fb9h"
+                  // init={{
+                  //   plugins:
+                  //     'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                  //   toolbar:
+                  //     'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                  //   tinycomments_mode: 'embedded',
+                  //   tinycomments_author: 'Author name',
+                  //   mergetags_list: [
+                  //     {value: 'First.Name', title: 'First Name'},
+                  //     {value: 'Email', title: 'Email'},
+                  //   ],
+                  //   ai_request: (request, respondWith) =>
+                  //     respondWith.string(() =>
+                  //       Promise.reject('See docs to implement AI Assistant')
+                  //     ),
+                  // }}
 
-                initialValue=""
-                value={editorValue}
-                onEditorChange={handleEditorChange}
-              />
+                  initialValue=""
+                  value={editorValue}
+                  onEditorChange={handleEditorChange}
+                />
+              </div>
             </div>
           </div>
         </div>
