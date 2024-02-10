@@ -1,19 +1,19 @@
 import showdown from 'showdown';
 import SearchBGIcons from './common/SearchBGIcons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PostOnWordPress from './PostOnWordPress';
 import CategoriesList from './CategoriesList';
 import axios from 'axios';
-import { useApi } from '../context/ApiContext';
-import { IoIosSearch } from 'react-icons/io';
-import { Editor } from '@tinymce/tinymce-react';
+import {useApi} from '../context/ApiContext';
+import {IoIosSearch} from 'react-icons/io';
+import {Editor} from '@tinymce/tinymce-react';
 const GPT_API_KEY = import.meta.env.VITE_GPT_API_KEY;
 const EDITOR_API_KEY = import.meta.env.VITE_EDITOR_API_KEY;
 
 const Hero = () => {
   const [editorValue, setEditorValue] = useState('');
   const [isEditorLoading, setisEditorLoading] = useState(false);
-  const { loading, error, content, getContent } = useApi();
+  const {loading, error, content, getContent} = useApi();
   const linkRef = useRef();
   const handleProductDetail = async (e) => {
     e.preventDefault();
@@ -25,12 +25,13 @@ const Hero = () => {
   };
 
   const fetchData = async (prompt, productData) => {
+    setisEditorLoading(true);
     const options = {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'ce4fb89694mshf684e66fcfe064ap11731djsn2b7c6cae55f2',
+        'X-RapidAPI-Key': GPT_API_KEY,
         'X-RapidAPI-Host': 'chatgpt-42.p.rapidapi.com',
       },
       data: {
@@ -49,6 +50,7 @@ const Hero = () => {
       const result = response.data.result;
       const converter = new showdown.Converter();
       const convertedContent = converter.makeHtml(result);
+      setisEditorLoading(false);
       setEditorValue(convertedContent);
     } catch (error) {
       console.error(error);
@@ -152,9 +154,7 @@ const Hero = () => {
                 <PostOnWordPress postData={editorValue} />
               </div>
 
-              <div
-                hidden={!isEditorLoading}
-              >
+              <div hidden={!isEditorLoading}>
                 <p className="mb-10">Please Wait Content is almost ready...</p>
                 <div
                   className="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
