@@ -1,0 +1,1 @@
+#Note: The Live version may be not work just because of API Limitation. If you want to use this in your Machine feel free to use this Free CHATGPT API https://rapidapi.com/rphrp1985/api/chatgpt-42/pricing
