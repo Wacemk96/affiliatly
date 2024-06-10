@@ -24,7 +24,7 @@ const Footer = () => {
               Waseem Khan
             </a>
           </p>
-          <p className="text-gray-500">© Preline. 2024 Htmlstream. All rights reserved.</p>
+          <p className="text-gray-500">© Waseemk.com. 2024 All rights reserved.</p>
         </div>
 
         <div className="mt-3 space-x-2">

@@ -149,7 +149,7 @@ const Hero = () => {
 
             <CategoriesList />
             <div className="container mt-10">
-              <h1 className="mb-10 text-4xl font-bold">TinyMCE Editor</h1>
+              <h1 className="mb-10 text-4xl font-bold dark:text-white">TinyMCE Editor</h1>
               <div className="mb-5">
                 <PostOnWordPress postData={editorValue} />
               </div>
